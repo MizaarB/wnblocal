@@ -1,0 +1,58 @@
+# start the container w/ parent image
+docker run -d -it --gpus all pytorch/pytorch:2.1.2-cuda11.8-cudnn8-runtime nvidia-smi
+docker run -d -it --gpus all ubuntu:20.04 nvidia-smi
+
+cd dummyDckr
+
+# create a modified image named myapp
+docker build -t myapp .
+
+# Run the custom image
+docker run -d -it --gpus all -p 8888:8888 myapp7
+(8888 means jupyter) 
+# Then go to the Docker desktop container page to get URL
+# Alternatively, go to Remote-Vscode extension to attach devcontainer
+
+docker run -d -it --gpus all -p 8888:8888 -p 6006:6006 -p 7860:7860 myapp6
+(6006 - tensorboard, 7860 - gradio)
+
+
+# Note that the jupyterlab under this context has a root dir of "/app"
+Also note that the changes to codes inside container won't be carried outside, do so manually.
+
+# You can also extract the file by this wsl2 command
+docker cp mycontainer:/path/to/data.txt ~/Desktop/
+
+_______________________________________
+
+
+abhishek/llama-2-7b-hf-small-shards
+
+autotrain llm --train --project-name my-llm --model NousResearch/Llama-2-7b-chat-hf --data-path . --use-peft --quantization 4bit --lr 2e-4 --train-batch-size 12 --epochs 1 --trainer sft
+
+autotrain llm --train --project-name my-llm --model abhishek/llama-2-7b-hf-small-shards --data-path . --use-peft --quantization 4bit --lr 2e-4 --train-batch-size 12 --epochs 3 --trainer sft
+
+_______
+
+myapp8 jupyterlab
+myapp9 dev
+myapp latest dev w/o git
+myapp4-6 breeze_02
+myapp10 tf go pip
+myapp11 without tf
+myapp12 pytorch 2.3.0, tf conda
+myapp13 12+ENV PATH cuda/local/bin
+myapp14 tf214 conda
+myapp13s1 Mixtral_8x7B_GPTQ.ipynb
+myapp14s1 
+myapp14s2 Mixtral 3bit q
+myapp14s3 git (no ninja g++)
+myapp14s4 ninja g++ (nothing in dir /usr/local/cuda)
+myapp14s5 remove 'CUDA_HOME PATH' ENV (cuda_home not set, no cuda extension)
+myapp14s6 devel parent 'pytorch/pytorch:2.3.1-cuda11.8-cudnn8-devel'
+myapp14s7 ignore habana error via dckr patch
+
+_______
+
+
+
